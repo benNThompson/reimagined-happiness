@@ -5,15 +5,10 @@ See pygame_util_demo.py for a comparison to pygame.
 __version__ = "$Id:$"
 __docformat__ = "reStructuredText"
 
-import sys
-
 import pyglet
-    
-import pymunk
-from pymunk.vec2d import Vec2d
 import pymunk.pyglet_util
 
-import shapes_for_draw_demos
+from Examples import shapes_for_draw_demos
 
 window = pyglet.window.Window(1000, 700, vsync=False)
 space = pymunk.Space()
