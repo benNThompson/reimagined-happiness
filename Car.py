@@ -50,6 +50,6 @@ def random_car():
                 num_wheels += 1
                 wheel_size = random.randint(minWheelSize, maxWheelSize)
 
-            vectors.apppend(Vector(magnitude, direction, wheel_size))
-        segments.append(vectors)
+            vectors.append(Vector(magnitude, direction, wheel_size))
+        segments.append(sorted(vectors, key=lambda vec: vec.Direction))
     return Car(segments[0], segments[1], random.randint(0, 7), random.randint(0, 7))
