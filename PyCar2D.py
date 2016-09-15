@@ -1,26 +1,20 @@
 import sys
+
 import pygame
+from pygame.locals import *
+from pygame.color import *
+
 import pymunk
+import pymunk.pygame_util
 from pymunk import Vec2d
+
 import Car
 
 def main():
     #region Initialize Pygame
-    display_flags = 0
-    display_size = (750, 750)
-
+    width, height = 750, 750
     pygame.init()
-    screen = pygame.display.set_mode(display_size, display_flags)
-    width, height = screen.get_size()
-
-    def to_pygame(p):
-        # Small hack to convert pymunk to pygame coordinates
-        return int(p.x), int(-p.y + height)
-
-    def from_pygame(p):
-        # The reverse conversion is the same
-        return to_pygame(p)
-
+    screen = pygame.display.set_mode((width, height))
     clock = pygame.time.Clock()
     running = True
     font = pygame.font.Font(None, 16)
@@ -29,6 +23,7 @@ def main():
     #region Initialize Pymunk
     space = pymunk.Space()
     space.gravity = (0.0, -1900.0)
+    draw_options = pymunk.pygame_util.DrawOptions(screen)
     #endregion
 
     #region Create the initial generation of cars
@@ -38,9 +33,29 @@ def main():
     car = cars[0]
     #endregion
 
-    #region Add car to pymunk space
+    # region Add floor
+    floor = pymunk.Segment(space.static_body, (50, 500), (700, 500), 5)
+    floor.friction = 1
+    space.add([floor])
+    # endregion
 
+    #region Add car to pymunk space
+    # x = width / 2
+    # y = height / 2
+    #mass = 5
     #endregion
+
+    # region Draw
+    while running:
+        screen.fill(pygame.color.THECOLORS["white"])
+        space.debug_draw(draw_options)
+
+        fps = 60
+        dt = 1. / fps
+        space.step(dt)
+
+        clock.tick(fps)
+        #endregion
 
 if __name__ == '__main__':
     sys.exit(main())
