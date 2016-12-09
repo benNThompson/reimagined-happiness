@@ -1,3 +1,3 @@
 # reimagined-happiness
 
-Implementing something similar to BoxCar2D in Python. The pymunk wrapper for Chipmunk will be used for physics. Pygame will be used for rendering 
+Gonna do this is Racket instead, because I miss it.
